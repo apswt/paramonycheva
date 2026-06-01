@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="mb-4">Параметры URL</h1>
+{% if params %}
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Параметр</th>
+      <th>Значение</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for key, values in params %}
+    <tr>
+      <td>{{ key }}</td>
+      <td>{{ values | join(', ') }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p>Параметры не переданы.</p>
+{% endif %}
+{% endblock %}

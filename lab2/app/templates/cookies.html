@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="mb-4">Cookie</h1>
+{% if action == 'set' %}
+<div class="alert alert-success">Cookie {{ cookie_name }} было установлено.</div>
+{% else %}
+<div class="alert alert-warning">Cookie {{ cookie_name }} было удалено.</div>
+{% endif %}
+
+<p>Текущее значение до обработки запроса: {{ cookie_value if cookie_value is not none else 'не установлено' }}</p>
+
+<h2 class="h4 mt-4">Cookie из запроса</h2>
+{% if all_cookies %}
+<ul>
+  {% for key, value in all_cookies %}
+  <li>{{ key }} = {{ value }}</li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>В запросе нет cookie.</p>
+{% endif %}
+{% endblock %}
