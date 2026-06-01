@@ -1,0 +1,40 @@
+services:
+  - type: web
+    name: apswt-lab1-flask
+    runtime: python
+    plan: free
+    rootDir: lab1
+    buildCommand: pip install -r requirements.txt gunicorn
+    startCommand: gunicorn app.app:app --bind 0.0.0.0:$PORT
+
+  - type: web
+    name: apswt-lab2-flask
+    runtime: python
+    plan: free
+    rootDir: lab2
+    buildCommand: pip install -r requirements.txt gunicorn
+    startCommand: gunicorn app.app:app --bind 0.0.0.0:$PORT
+
+  - type: web
+    name: apswt-lab3-flask
+    runtime: python
+    plan: free
+    rootDir: lab3
+    buildCommand: pip install -r requirements.txt gunicorn
+    startCommand: gunicorn app.app:app --bind 0.0.0.0:$PORT
+
+  - type: web
+    name: apswt-lab4-flask
+    runtime: python
+    plan: free
+    rootDir: lab4
+    buildCommand: pip install -r requirements.txt gunicorn
+    startCommand: gunicorn app.app:app --bind 0.0.0.0:$PORT
+
+  - type: web
+    name: apswt-lab5-flask
+    runtime: python
+    plan: free
+    rootDir: lab5
+    buildCommand: pip install -r requirements.txt gunicorn
+    startCommand: gunicorn app.app:app --bind 0.0.0.0:$PORT
