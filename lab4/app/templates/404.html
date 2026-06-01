@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>404</h1>
+<p>Запрошенный пользователь не найден.</p>
+<a class="btn btn-primary" href="{{ url_for('index') }}">К списку пользователей</a>
+{% endblock %}

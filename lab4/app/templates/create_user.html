@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% from '_user_form.html' import render_user_form %}
+
+{% block content %}
+<h1 class="mb-4">Создание пользователя</h1>
+<form method="post" class="col-md-7">
+  {{ render_user_form(form_data, roles, errors, is_edit=False) }}
+</form>
+{% endblock %}
