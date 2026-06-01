@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="mb-4">Просмотр пользователя</h1>
+<table class="table table-bordered">
+  <tbody>
+    <tr><th>Идентификатор</th><td>{{ user.id }}</td></tr>
+    <tr><th>Логин</th><td>{{ user.login }}</td></tr>
+    <tr><th>Фамилия</th><td>{{ user.last_name or '' }}</td></tr>
+    <tr><th>Имя</th><td>{{ user.first_name }}</td></tr>
+    <tr><th>Отчество</th><td>{{ user.middle_name or '' }}</td></tr>
+    <tr><th>Роль</th><td>{{ role_name(user) }}</td></tr>
+  </tbody>
+</table>
+{% endblock %}

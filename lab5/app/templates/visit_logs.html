@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="mb-4">Журнал посещений</h1>
+
+{% if show_reports %}
+<div class="mb-3">
+  <a class="btn btn-outline-primary me-2" href="{{ url_for('reports.pages_report') }}">Отчёт по страницам</a>
+  <a class="btn btn-outline-primary" href="{{ url_for('reports.users_report') }}">Отчёт по пользователям</a>
+</div>
+{% endif %}
+
+{% if pagination.items %}
+<table class="table table-bordered align-middle">
+  <thead>
+    <tr>
+      <th>№</th>
+      <th>Пользователь</th>
+      <th>Страница</th>
+      <th>Дата</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for log in pagination.items %}
+    <tr>
+      <td>{{ loop.index + (pagination.page - 1) * pagination.per_page }}</td>
+      <td>{{ log.user.full_name if log.user else guest_label }}</td>
+      <td>{{ log.path }}</td>
+      <td>{{ log.created_at.strftime('%d.%m.%Y %H:%M:%S') }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<nav aria-label="Пагинация журнала посещений">
+  <ul class="pagination">
+    <li class="page-item {% if not pagination.has_prev %}disabled{% endif %}">
+      <a class="page-link" href="{{ url_for('reports.visit_logs', page=pagination.prev_num, per_page=pagination.per_page) }}">Назад</a>
+    </li>
+    {% for p in pagination.iter_pages(left_edge=1, left_current=1, right_current=2, right_edge=1) %}
+      {% if p %}
+      <li class="page-item {% if p == pagination.page %}active{% endif %}">
+        <a class="page-link" href="{{ url_for('reports.visit_logs', page=p, per_page=pagination.per_page) }}">{{ p }}</a>
+      </li>
+      {% else %}
+      <li class="page-item disabled"><span class="page-link">...</span></li>
+      {% endif %}
+    {% endfor %}
+    <li class="page-item {% if not pagination.has_next %}disabled{% endif %}">
+      <a class="page-link" href="{{ url_for('reports.visit_logs', page=pagination.next_num, per_page=pagination.per_page) }}">Вперёд</a>
+    </li>
+  </ul>
+</nav>
+{% else %}
+<p class="text-muted">Записи отсутствуют.</p>
+{% endif %}
+{% endblock %}

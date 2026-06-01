@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% from '_user_form.html' import render_user_form %}
+
+{% block content %}
+<h1 class="mb-4">Редактирование пользователя</h1>
+<p class="text-muted">Логин: {{ user.login }}</p>
+<form method="post" class="col-md-7">
+  {{ render_user_form(form_data, roles, errors, is_edit=True, role_locked=role_locked) }}
+</form>
+{% endblock %}
