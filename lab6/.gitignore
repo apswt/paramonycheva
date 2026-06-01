@@ -1,0 +1,7 @@
+app/instance/*.db
+instance/*.db
+**/__pycache__/
+**/.pytest_cache/
+app/project.db
+media/images/*
+!media/images/.gitkeep

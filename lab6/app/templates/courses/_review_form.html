@@ -1,0 +1,48 @@
+<section class="review-form-section mb-5">
+    <h2 class="mb-3 text-uppercase font-weight-bold">Оставить отзыв</h2>
+
+    {% if current_user.is_authenticated %}
+        {% if user_review %}
+            <div class="alert alert-info" role="alert">
+                Вы уже оставили отзыв к этому курсу.
+            </div>
+            <article class="card review-card mb-3">
+                <div class="card-body">
+                    <div class="d-flex flex-wrap gap-2 align-items-center mb-2">
+                        <strong>{{ user_review.user.full_name }}</strong>
+                        <span class="text-muted">{{ user_review.created_at.strftime('%d.%m.%Y %H:%M') }}</span>
+                        <span class="badge bg-warning text-dark ms-auto">Оценка: {{ user_review.rating }}</span>
+                    </div>
+                    <p class="mb-0">{{ user_review.text }}</p>
+                </div>
+            </article>
+        {% else %}
+            <form method="POST" action="{{ url_for('courses.create_review', course_id=course.id) }}">
+                <input type="hidden" name="next_page" value="{{ next_page_value }}">
+                <input type="hidden" name="sort" value="{{ current_sort }}">
+
+                <div class="mb-3">
+                    <label for="rating" class="form-label">Оценка</label>
+                    <select class="form-select" id="rating" name="rating">
+                        {% for option in review_rating_options %}
+                            <option value="{{ option.value }}" {% if option.value == 5 %}selected{% endif %}>
+                                {{ option.label }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="review_text" class="form-label">Текст отзыва</label>
+                    <textarea class="form-control" id="review_text" name="text" rows="4" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-dark">Сохранить отзыв</button>
+            </form>
+        {% endif %}
+    {% else %}
+        <div class="alert alert-warning" role="alert">
+            Чтобы оставить отзыв, <a href="{{ url_for('auth.login', next=request.full_path) }}">войдите в систему</a>.
+        </div>
+    {% endif %}
+</section>

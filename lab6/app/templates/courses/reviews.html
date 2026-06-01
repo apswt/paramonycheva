@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% from 'pagination.html' import render_pagination %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="d-flex flex-wrap gap-2 align-items-center mb-4">
+        <h1 class="mb-0">{{ course.name }} — отзывы</h1>
+        <a class="btn btn-outline-dark ms-auto" href="{{ url_for('courses.show', course_id=course.id) }}">К странице курса</a>
+    </div>
+
+    <form class="row g-3 align-items-end mb-4" method="GET">
+        <div class="col-md-6">
+            <label for="sort" class="form-label">Порядок сортировки</label>
+            <select class="form-select" id="sort" name="sort">
+                {% for option in sort_options %}
+                    <option value="{{ option.value }}" {% if option.value == sort %}selected{% endif %}>
+                        {{ option.label }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-3">
+            <button type="submit" class="btn btn-dark w-100">Применить</button>
+        </div>
+    </form>
+
+    {% if reviews %}
+        {% for review in reviews %}
+            <article class="card mb-3 review-card">
+                <div class="card-body">
+                    <div class="d-flex flex-wrap gap-2 align-items-center mb-2">
+                        <strong>{{ review.user.full_name }}</strong>
+                        <span class="text-muted">{{ review.created_at.strftime('%d.%m.%Y %H:%M') }}</span>
+                        <span class="badge bg-warning text-dark ms-auto">Оценка: {{ review.rating }}</span>
+                    </div>
+                    <p class="mb-0">{{ review.text }}</p>
+                </div>
+            </article>
+        {% endfor %}
+    {% else %}
+        <p class="text-muted">Пока нет отзывов.</p>
+    {% endif %}
+
+    <div class="my-4">
+        {{ render_pagination(pagination, request.endpoint, {'course_id': course.id, 'sort': sort}) }}
+    </div>
+
+    {% set next_page_value = 'all_reviews' %}
+    {% set current_sort = sort %}
+    {% include 'courses/_review_form.html' %}
+</div>
+{% endblock %}
