@@ -1,4 +1,5 @@
 from contextlib import contextmanager
+from datetime import datetime
 
 import pytest
 from flask import template_rendered
@@ -29,3 +30,17 @@ def captured_templates(app):
         yield recorded
     finally:
         template_rendered.disconnect(record, app)
+
+
+@pytest.fixture
+def posts_list():
+    return [
+        {
+            'title': 'Заголовок поста',
+            'text': 'Текст поста',
+            'author': 'Иванов Иван Иванович',
+            'date': datetime(2025, 3, 10),
+            'image_id': '123.jpg',
+            'comments': [],
+        }
+    ]

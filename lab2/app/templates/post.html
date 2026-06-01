@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<article class="post-page">
+    <h1 class="my-4">{{ post.title }}</h1>
+    <p class="text-muted post-meta mb-4">{{ post.author }}, {{ post.date.strftime('%d.%m.%Y') }}</p>
+
+    <img class="img-fluid rounded post-image mb-4" src="{{ url_for('static', filename='images/' + post.image_id) }}" alt="{{ post.title }}">
+
+    <p class="post-text mb-5">{{ post.text }}</p>
+
+    <section class="card mb-4">
+        <div class="card-header">Оставьте комментарий</div>
+        <div class="card-body">
+            <form>
+                <div class="mb-3">
+                    <textarea class="form-control" rows="4" placeholder="Введите комментарий"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Отправить</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="comments">
+        {% for comment in post.comments recursive %}
+            <div class="comment-item {% if not loop.first %}mt-4{% endif %}">
+                <div class="d-flex">
+                    <div class="comment-avatar me-3" aria-hidden="true"></div>
+                    <div class="comment-content">
+                        <h3 class="h4 comment-author mb-2">{{ comment.author }}</h3>
+                        <p class="mb-0">{{ comment.text }}</p>
+                    </div>
+                </div>
+
+                {% if comment.replies %}
+                    <div class="ms-5 mt-3">
+                        {{ loop(comment.replies) }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </section>
+</article>
+{% endblock %}
