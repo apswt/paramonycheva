@@ -1,22 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="row">
-  <div class="col-lg-12">
-    <h1 class="my-5">Задание к лабораторной работе</h1>
-
-    <p class="fw-bold">ЛР1: страница постов, отдельная страница поста, footer, тесты.</p>
-    <p>Разделы ЛР1 доступны по ссылкам «Посты» и «Об авторе» в меню.</p>
-
-    <p class="fw-bold mt-4">ЛР2: работа с параметрами запроса, cookie, формой и проверкой телефона.</p>
-    <p>Доступные страницы ЛР2:</p>
-    <ul>
-      <li><a href="{{ url_for('url_params_page') }}">Параметры URL</a></li>
-      <li><a href="{{ url_for('headers_page') }}">Заголовки запроса</a></li>
-      <li><a href="{{ url_for('cookies_page') }}">Cookie</a></li>
-      <li><a href="{{ url_for('form_params_page') }}">Параметры формы</a></li>
-      <li><a href="{{ url_for('phone_page') }}">Проверка телефона</a></li>
-    </ul>
-  </div>
-</div>
+<h1 class="mb-4">Лабораторная работа №2</h1>
+<p>Используйте меню для перехода на страницы:</p>
+<ul>
+  <li>Параметры URL</li>
+  <li>Заголовки запроса</li>
+  <li>Cookie</li>
+  <li>Параметры формы</li>
+  <li>Проверка телефона</li>
+</ul>
 {% endblock %}
