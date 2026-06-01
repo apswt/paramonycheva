@@ -1,3 +1,4 @@
 app/instance/*.db
+instance/*.db
 app/**/__pycache__/
 app/.pytest_cache/

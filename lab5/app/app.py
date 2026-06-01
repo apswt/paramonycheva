@@ -373,7 +373,10 @@ def create_app(test_config=None):
         if app.config.get('SEED_DATA', True):
             seed_data()
 
-    from reports import reports_bp
+    try:
+        from .reports import reports_bp
+    except ImportError:
+        from reports import reports_bp
 
     app.register_blueprint(reports_bp)
     return app

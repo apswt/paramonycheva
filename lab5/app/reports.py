@@ -5,15 +5,26 @@ from flask import Blueprint, Response, render_template, request
 from flask_login import current_user, login_required
 from sqlalchemy import func
 
-from app import (
-    RIGHT_VIEW_LOG_REPORTS,
-    RIGHT_VIEW_LOGS,
-    User,
-    VisitLog,
-    check_rights,
-    db,
-    has_right,
-)
+try:
+    from .app import (
+        RIGHT_VIEW_LOG_REPORTS,
+        RIGHT_VIEW_LOGS,
+        User,
+        VisitLog,
+        check_rights,
+        db,
+        has_right,
+    )
+except ImportError:
+    from app import (
+        RIGHT_VIEW_LOG_REPORTS,
+        RIGHT_VIEW_LOGS,
+        User,
+        VisitLog,
+        check_rights,
+        db,
+        has_right,
+    )
 
 reports_bp = Blueprint('reports', __name__, url_prefix='/visits')
 
