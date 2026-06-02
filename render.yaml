@@ -46,3 +46,6 @@ services:
     rootDir: lab6
     buildCommand: pip install -r requirements.txt gunicorn
     startCommand: gunicorn app.app:app --bind 0.0.0.0:$PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.5
